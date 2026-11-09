@@ -1,0 +1,82 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Image from "@/components/Image.astro";
+import { collections } from "@/data/collections";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+export const getStaticPaths = (() => collections.map((collection) => ({ params: { slug: collection.slug }, props: { collection } }))) satisfies GetStaticPaths;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { collection } = Astro.props;
+---
+<BaseLayout>
+  <main class="relative min-h-[100svh] flex-1 overflow-hidden bg-[#2B2A7A]">
+    {collection.slug === "beach-resort" && (
+      <Image
+        src="/images/collection/001/01-bg.png"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        class="object-cover object-top"
+      />
+    )}
+    {collection.slug === "beach-resort" && (
+      <section class="relative min-h-[100svh] overflow-hidden" aria-labelledby="collection-title">
+        <h1 id="collection-title" class="sr-only">{collection.title}</h1>
+        <Image
+          src="/images/collection/001/beach_resort_logo.svg"
+          alt="Beach Resort"
+          width={941}
+          height={328}
+          priority
+          sizes="(max-width: 768px) 72vw, 579px"
+          class="absolute left-1/2 top-[43%] h-auto w-[72vw] max-w-[579px] -translate-x-1/2 -translate-y-1/2"
+        />
+      </section>
+    )}
+    {(collection.slug !== "beach-resort" || collection.description || collection.gallery?.length) && (
+    <article class="relative mx-auto max-w-[1440px] px-6 pt-36 pb-24 sm:px-12 lg:px-16">
+      {collection.slug !== "beach-resort" && (<h1
+        class={`font-tiny5 text-[clamp(3rem,8vw,6.5rem)] leading-none font-normal text-[#F0EACC]`}
+      >
+        {collection.title}
+      </h1>)}
+
+      {collection.slug !== "beach-resort" && collection.cover && (
+        <div class="relative mt-10 aspect-[4/3] w-full max-w-[1098px]">
+          <Image
+            src={collection.cover}
+            alt={collection.coverAlt}
+            fill
+            sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1199px) 80vw, 1098px"
+            class="object-cover"
+          />
+        </div>
+      )}
+
+      {collection.description && (
+        <p class="mt-10 max-w-3xl text-lg leading-relaxed text-[#F0EACC] sm:text-xl">
+          {collection.description}
+        </p>
+      )}
+
+      {collection.gallery && collection.gallery.length > 0 && (
+        <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {collection.gallery.map((image) => (
+            <div
+              class="relative aspect-[4/3] w-full"
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(max-width: 639px) calc(100vw - 3rem), (max-width: 1023px) 45vw, 30vw"
+                class="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </article>
+    )}
+  </main>
+</BaseLayout>

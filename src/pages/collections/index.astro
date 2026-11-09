@@ -1,0 +1,55 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PixelPlus from "@/components/PixelPlus.astro";
+import { collections } from "@/data/collections";
+import CollectionCard from "@/components/CollectionCard.astro";
+---
+<BaseLayout>
+  <main class="relative min-h-[100svh] flex-1 overflow-hidden bg-[#2B2A7A]">
+    <div class="mx-auto max-w-[1440px] px-6 pt-36 pb-40 sm:px-12 lg:px-16">
+      <div class="relative pl-10 sm:pl-20">
+        <div
+          aria-hidden="true"
+          class="pointer-events-none absolute top-8 left-0 h-24 w-8 sm:w-14"
+        >
+          <PixelPlus
+            color="#303795"
+            class="left-0 top-0 w-5 sm:w-10"
+          />
+          <PixelPlus
+            color="#ED735F"
+            class="right-0 top-9 w-4 sm:w-7"
+          />
+          <PixelPlus
+            color="#F0EACC"
+            class="bottom-0 left-1 w-3 sm:w-5"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2 lg:gap-x-16">
+          {collections.map((collection) => (
+            <CollectionCard collection={collection} />
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute right-5 bottom-8 h-20 w-24 sm:right-12 sm:bottom-10 sm:h-28 sm:w-32"
+    >
+      <PixelPlus
+        color="#ED735F"
+        class="left-0 top-0 w-7 sm:w-10"
+      />
+      <PixelPlus
+        color="#F0EACC"
+        class="right-0 top-8 w-8 sm:top-12 sm:w-12"
+      />
+      <PixelPlus
+        color="#303795"
+        class="bottom-0 left-9 w-5 sm:left-14 sm:w-7"
+      />
+    </div>
+  </main>
+</BaseLayout>

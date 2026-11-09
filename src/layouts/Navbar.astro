@@ -1,0 +1,34 @@
+---
+import Image from "@/components/Image.astro";
+---
+<header class="fixed inset-x-0 top-0 z-50 bg-transparent">
+      <nav
+        aria-label="Main navigation"
+        class="mx-auto grid h-24 max-w-[1440px] grid-cols-3 items-center px-8 md:px-16"
+      >
+        <a
+          href="/about"
+          class={`font-tiny5 justify-self-start text-[53.75px] font-normal text-[#F0EACC] transition-opacity hover:opacity-70`}
+        >
+          About
+        </a>
+
+        <a href="/" aria-label="Back to home" class="justify-self-center">
+          <Image
+            src="/images/navbar/spark.png"
+            alt="Website logo"
+            width={88}
+            height={88}
+            priority
+            class="h-[58px] w-[58px] object-contain md:h-[70px] md:w-[70px]"
+          />
+        </a>
+
+        <a
+          href="/collections"
+          class={`font-tiny5 justify-self-end text-[53.75px] font-normal text-[#F0EACC] transition-opacity hover:opacity-70`}
+        >
+          Collections
+        </a>
+      </nav>
+    </header>

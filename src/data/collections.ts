@@ -18,7 +18,7 @@ export const collections: Collection[] = [
     id: "001",
     slug: "beach-resort",
     title: "Beach Resort",
-    cover: null,
+    cover: "/images/collection/beach_resort.svg",
     coverAlt: "Beach Resort collection cover",
   },
 ];

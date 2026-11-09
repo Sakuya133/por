@@ -1,0 +1,23 @@
+---
+import "@fontsource/tiny5/latin-400.css";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import "@/styles/globals.css";
+import Navbar from "./Navbar.astro";
+import Footer from "./Footer.astro";
+---
+<!doctype html>
+<html lang="en" class="h-full antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Sparks!" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>Sparks!</title>
+  </head>
+  <body class="min-h-full flex flex-col">
+    <Navbar />
+    <slot />
+    <Footer />
+  </body>
+</html>

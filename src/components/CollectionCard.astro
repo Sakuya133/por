@@ -1,0 +1,28 @@
+---
+import type { Collection } from "@/data/collections";
+import Image from "./Image.astro";
+interface Props { collection: Collection }
+const { collection } = Astro.props;
+---
+<a
+      href={`/collections/${collection.slug}`}
+      class="block w-fit max-w-full focus-visible:ring-2 focus-visible:ring-[#F0EACC] focus-visible:ring-offset-4 focus-visible:ring-offset-[#2B2A7A]"
+    >
+      <figure>
+        <div class="relative aspect-[4/3] w-full">
+          {collection.cover && (
+            <Image
+              src={collection.cover}
+              alt={collection.coverAlt}
+              fill
+              class="object-cover"
+            />
+          )}
+        </div>
+        <figcaption
+          class="font-tiny5 mt-4 text-center text-[clamp(1.5rem,3vw,2.25rem)] leading-tight font-normal text-[#F0EACC]"
+        >
+          {collection.id} - {collection.title}
+        </figcaption>
+      </figure>
+    </a>
