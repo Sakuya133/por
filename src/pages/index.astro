@@ -68,10 +68,10 @@ const newestCollection = [
       </div>
 
       <Image
-        src="/images/spark_text.png"
+        src="/images/logo.svg"
         alt="Sparks!"
-        width={579}
-        height={328}
+        width={402}
+        height={192}
         priority
         sizes="(max-width: 768px) 72vw, 579px"
         class="absolute left-1/2 top-[43%] h-auto w-[72vw] max-w-[579px] -translate-x-1/2 -translate-y-1/2"
@@ -117,14 +117,14 @@ const newestCollection = [
           Newest Collection
         </h2>
 
-        <div class="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-x-3 gap-y-12 sm:mt-20 sm:gap-x-10 sm:gap-y-16 lg:gap-x-16 lg:gap-y-20">
+        <div class="mx-auto mt-16 grid max-w-4xl grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-12 sm:mt-20 sm:gap-x-10 sm:gap-y-16 lg:gap-x-16 lg:gap-y-20">
           {newestCollection.map((product) => (
             <BatikHover class="aspect-[3/4]">
               <Image
                 src={product.src}
                 alt={product.alt}
                 fill
-                sizes="(max-width: 1024px) 45vw, 32vw"
+                sizes="(max-width: 639px) 88vw, (max-width: 1024px) 45vw, 32vw"
                 class="object-contain drop-shadow-[0_18px_24px_rgba(35,23,19,0.22)]"
               />
             </BatikHover>

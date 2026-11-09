@@ -2,33 +2,91 @@
 import Image from "@/components/Image.astro";
 ---
 <header class="fixed inset-x-0 top-0 z-50 bg-transparent">
-      <nav
-        aria-label="Main navigation"
-        class="mx-auto grid h-24 max-w-[1440px] grid-cols-3 items-center px-8 md:px-16"
-      >
-        <a
-          href="/about"
-          class={`font-tiny5 justify-self-start text-[53.75px] font-normal text-[#F0EACC] transition-opacity hover:opacity-70`}
-        >
-          About
-        </a>
+  <nav aria-label="Main navigation" class="mx-auto grid h-24 max-w-[1440px] grid-cols-3 items-center px-8 md:px-16">
+    <button
+      id="mobile-menu-open"
+      type="button"
+      aria-label="Open menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-haspopup="dialog"
+      class="flex h-12 w-12 items-center justify-center justify-self-start rounded-full border-2 border-[#F0EACC] text-[#F0EACC] transition-colors hover:bg-[#F0EACC]/15 focus-visible:outline-2 focus-visible:outline-offset-4 md:hidden"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+    <a href="/about" class="font-tiny5 hidden justify-self-start text-[53.75px] font-normal text-[#F0EACC] transition-opacity hover:opacity-70 md:block">About</a>
+    <a href="/" aria-label="Back to home" class="col-start-2 row-start-1 justify-self-center">
+      <Image src="/images/navbar/spark.png" alt="Website logo" width={88} height={88} priority class="h-[58px] w-[58px] object-contain md:h-[70px] md:w-[70px]" />
+    </a>
+    <a href="/collections" class="font-tiny5 hidden justify-self-end text-[53.75px] font-normal text-[#F0EACC] transition-opacity hover:opacity-70 md:block">Collections</a>
+  </nav>
+</header>
 
-        <a href="/" aria-label="Back to home" class="justify-self-center">
-          <Image
-            src="/images/navbar/spark.png"
-            alt="Website logo"
-            width={88}
-            height={88}
-            priority
-            class="h-[58px] w-[58px] object-contain md:h-[70px] md:w-[70px]"
-          />
-        </a>
+<dialog id="mobile-menu" aria-label="Navigation menu">
+  <div class="grid h-24 grid-cols-3 items-center px-8">
+    <button id="mobile-menu-close" type="button" aria-label="Close menu" class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-current focus-visible:outline-2 focus-visible:outline-offset-4">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="m6 6 12 12M18 6 6 18" />
+      </svg>
+    </button>
+    <a href="/" aria-label="Back to home" class="justify-self-center">
+      <Image src="/images/navbar/spark.png" alt="Website logo" width={58} height={58} class="h-[58px] w-[58px] object-contain" />
+    </a>
+  </div>
+  <nav aria-label="Mobile navigation" class="font-tiny5 flex min-h-[calc(100svh-6rem)] flex-col items-center justify-center gap-10 px-6 pb-24 text-[clamp(3rem,12vw,5rem)] leading-none">
+    <a href="/about" class="transition-opacity hover:opacity-70">About</a>
+    <a href="/collections" class="transition-opacity hover:opacity-70">Collections</a>
+  </nav>
+</dialog>
 
-        <a
-          href="/collections"
-          class={`font-tiny5 justify-self-end text-[53.75px] font-normal text-[#F0EACC] transition-opacity hover:opacity-70`}
-        >
-          Collections
-        </a>
-      </nav>
-    </header>
+<style>
+  #mobile-menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow-y: auto;
+    background: #F0EACC;
+    color: #2b2a7a;
+  }
+  #mobile-menu::backdrop {
+    background: #F0EACC;
+  }
+</style>
+
+<script>
+  const openButton = document.querySelector<HTMLButtonElement>("#mobile-menu-open");
+  const closeButton = document.querySelector<HTMLButtonElement>("#mobile-menu-close");
+  const menu = document.querySelector<HTMLDialogElement>("#mobile-menu");
+  const desktop = window.matchMedia("(min-width: 768px)");
+
+  if (openButton && closeButton && menu) {
+    let previousOverflow = "";
+    openButton.addEventListener("click", () => {
+      if (menu.open || desktop.matches) return;
+      previousOverflow = document.documentElement.style.overflow;
+      menu.showModal();
+      document.documentElement.style.overflow = "hidden";
+      openButton.setAttribute("aria-expanded", "true");
+    });
+    closeButton.addEventListener("click", () => menu.close());
+    menu.addEventListener("close", () => {
+      document.documentElement.style.overflow = previousOverflow;
+      openButton.setAttribute("aria-expanded", "false");
+      if (!desktop.matches) openButton.focus();
+    });
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => menu.close());
+    });
+    desktop.addEventListener("change", () => {
+      if (desktop.matches && menu.open) menu.close();
+    });
+  }
+</script>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Image from "@/components/Image.astro";
+import BatikHover from "@/components/BatikHover.astro";
 import { collections } from "@/data/collections";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 export const getStaticPaths = (() => collections.map((collection) => ({ params: { slug: collection.slug }, props: { collection } }))) satisfies GetStaticPaths;
@@ -60,19 +61,17 @@ const { collection } = Astro.props;
       )}
 
       {collection.gallery && collection.gallery.length > 0 && (
-        <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mx-auto mt-16 grid max-w-4xl grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-12 sm:mt-20 sm:gap-x-10 sm:gap-y-16 lg:gap-x-16 lg:gap-y-20">
           {collection.gallery.map((image) => (
-            <div
-              class="relative aspect-[4/3] w-full"
-            >
+            <BatikHover class="aspect-[3/4]">
               <Image
                 src={image.src}
                 alt={image.alt}
                 fill
-                sizes="(max-width: 639px) calc(100vw - 3rem), (max-width: 1023px) 45vw, 30vw"
-                class="object-cover"
+                sizes="(max-width: 639px) 88vw, (max-width: 1024px) 45vw, 32vw"
+                class="object-contain drop-shadow-[0_18px_24px_rgba(35,23,19,0.22)]"
               />
-            </div>
+            </BatikHover>
           ))}
         </div>
       )}
