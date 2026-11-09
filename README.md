@@ -1,6 +1,6 @@
 # Sparks!
 
-Static Astro website using TypeScript and Tailwind CSS 4. Requires Node.js 22.23.4+ and Bun.
+Static Astro website using TypeScript and Tailwind CSS 4. Requires Node.js 24.x and Bun.
 
 ## Development
 
